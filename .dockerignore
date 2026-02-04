@@ -1,0 +1,30 @@
+# Python / uv
+.venv
+__pycache__
+*.pyc
+*.pyo
+
+# Environment
+.env
+.env.*
+
+# Django
+db.sqlite3
+media
+staticfiles
+
+# Testing
+.pytest_cache
+.coverage
+htmlcov
+
+# Git & editors
+.git
+.gitignore
+.vscode
+.idea
+
+# OS / logs
+.DS_Store
+Thumbs.db
+*.log
