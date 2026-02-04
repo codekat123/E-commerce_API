@@ -1,17 +1,34 @@
-services:
 
+
+services:
   web:
     build: .
-    restart: always
-    env_file: 
-      - .env
-    command: python manage.py runserver 0.0.0.0:8000
+    command: uv run python manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/src
     ports:
       - "8000:8000"
-    depends_on: ["db"]
+    depends_on:
+      - redis
+    env_file:
+      - .env
 
+  celery:
+    build: .
+    command: uv run celery -A config worker -l info
+    volumes:
+      - .:/src
+    depends_on:
+      - redis
+    env_file:
+      - .env
+
+  redis:
+    image: redis:7
+    env_file:
+      - .env
+    ports:
+      - "6379:6379"
   db:
     image: postgres:16
     container_name: postgres_db
