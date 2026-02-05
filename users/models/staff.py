@@ -3,10 +3,6 @@ from django.db import models
 
 
 class Staff(BaseUserModel):
-    """
-    Staff user model for internal employees.
-    Staff members have is_staff=True by default for admin access.
-    """
 
     DEPARTMENT_CHOICES = [
         ('support', 'Customer Support'),

@@ -3,10 +3,6 @@ from polymorphic.managers import PolymorphicManager
 
 
 class CustomUserManager(BaseUserManager, PolymorphicManager):
-    """
-    Custom manager for polymorphic user model.
-    Provides methods for creating users with proper validation.
-    """
 
     def create_user(self, email, password, full_name, **extra_fields):
 

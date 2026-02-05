@@ -4,10 +4,6 @@ from django.core.validators import MinLengthValidator
 
 
 class Vendor(BaseUserModel):
-    """
-    Vendor user model for sellers/businesses.
-    Stores vendor-specific information and business details.
-    """
 
     business_name = models.CharField(
         'business name',
@@ -40,5 +36,5 @@ class Vendor(BaseUserModel):
         verbose_name_plural = 'vendors'
         db_table = 'users_vendor'
         indexes = [
-            models.Index(fields=['verified', 'is_active']),
+            models.Index(fields=['verified']),
         ]

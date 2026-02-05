@@ -10,10 +10,6 @@ from .manager import CustomUserManager
 
 
 class BaseUserModel(AbstractBaseUser, PermissionsMixin, PolymorphicModel):
-    """
-    Base user model for multi-user e-commerce platform.
-    Supports polymorphic inheritance for Client, Vendor, and Staff models.
-    """
     
     email = models.EmailField(
         'email address',
@@ -51,7 +47,6 @@ class BaseUserModel(AbstractBaseUser, PermissionsMixin, PolymorphicModel):
     objects = CustomUserManager()
 
     class Meta:
-        abstract = True
         verbose_name = 'user'
         verbose_name_plural = 'users'
 

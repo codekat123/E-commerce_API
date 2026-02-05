@@ -32,7 +32,7 @@ EXTERNAL_APPS = [
 ]
 
 LOCAL_APPS = [
-   'users'
+   'users.apps.UsersConfig'
 ]
 
 
@@ -157,6 +157,4 @@ CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = 'Africa/Cairo'
-
-
 

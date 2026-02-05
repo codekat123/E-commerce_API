@@ -5,10 +5,6 @@ from ..utils import get_country_choices
 
 
 class Client(BaseUserModel):
-    """
-    Client user model for end customers.
-    Stores customer-specific information.
-    """
 
     phone_regex = RegexValidator(
         regex=r'^\+?1?\d{9,15}$',
@@ -24,10 +20,12 @@ class Client(BaseUserModel):
         'country',
         choices=get_country_choices(),
         max_length=60,
+        blank=True,
     )
     location = models.TextField(
         'location',
         max_length=400,
+        blank=True,
     )
 
     class Meta:
