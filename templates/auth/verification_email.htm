@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Verify your email</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #f4f6f8;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 40px auto;
+      background-color: #ffffff;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .header {
+      background-color: #0f172a;
+      color: #ffffff;
+      padding: 24px;
+      text-align: center;
+    }
+
+    .content {
+      padding: 32px;
+      color: #333333;
+      line-height: 1.6;
+    }
+
+    .button-wrapper {
+      text-align: center;
+      margin: 32px 0;
+    }
+
+    .button {
+      display: inline-block;
+      padding: 14px 28px;
+      background-color: #2563eb;
+      color: #ffffff !important;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: bold;
+    }
+
+    .footer {
+      padding: 20px;
+      text-align: center;
+      font-size: 13px;
+      color: #777777;
+      background-color: #f9fafb;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="header">
+      <h1>Verify your email</h1>
+    </div>
+
+    <div class="content">
+      <p>Hey {{ user.full_name|default:user.email }},</p>
+
+      <p>
+        Thanks for signing up!  
+        Please confirm your email address by clicking the button below.
+      </p>
+
+      <div class="button-wrapper">
+        <a href="{{ link }}" class="button">
+          Verify Email
+        </a>
+      </div>
+
+      <p>
+        If the button doesn’t work, copy and paste this link into your browser:
+      </p>
+
+      <p style="word-break: break-all;">
+        <a href="{{ link }}">{{ link }}</a>
+      </p>
+
+      <p>
+        If you didn’t create this account, you can safely ignore this email.
+      </p>
+    </div>
+
+    <div class="footer">
+      <p>
+        This link will expire for security reasons.<br />
+        © {{ now|date:"Y" }} Your Company
+      </p>
+    </div>
+  </div>
+
+</body>
+</html>
