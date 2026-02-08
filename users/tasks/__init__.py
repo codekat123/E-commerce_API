@@ -1,1 +1,2 @@
 from .verification_email import send_verification_email
+from .set_password import send_email_to_set_pasword

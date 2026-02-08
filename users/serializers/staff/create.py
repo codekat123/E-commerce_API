@@ -14,7 +14,6 @@ class StaffCreateSerializer(serializers.ModelSerializer):
         return value
 
     def create(self, validated_data):
-        password = validated_data.pop('password')
         staff = Staff(**validated_data)
         staff.is_staff = True
         staff.save()

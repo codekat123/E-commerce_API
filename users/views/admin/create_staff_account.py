@@ -6,7 +6,7 @@ from ...permissions import IsAdmin
 
 User = get_user_model()
 
-class CreateStaff(CreateAPIView):
+class StaffCreateAPIView(CreateAPIView):
     queryset = User.objects.all()
     serializer_class = StaffCreateSerializer
     permission_classes = [IsAuthenticated,IsAdmin]
