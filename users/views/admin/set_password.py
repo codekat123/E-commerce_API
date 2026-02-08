@@ -4,27 +4,22 @@ from django.core.exceptions import ValidationError
 from django.contrib import messages
 from ...forms import SetPasswordForm
 
-def staff_set_password_view(request,uuid,token):
-
+def staff_set_password_view(request, uuid, token):
     try:
-        user = get_user_from_token(uuid,token)
+        user = get_user_from_token(uuid, token)
     except ValidationError as e:
-        messages.error(request,str(e))
+        messages.error(request, str(e))
+        return redirect('/')
 
     if request.method == "POST":
+        form = SetPasswordForm(request.POST)
         if form.is_valid():
-            form = SetPasswordForm(request.POST)
             user.set_password(form.cleaned_data['password'])
             user.is_active = True
             user.save()
-            messages.success(request,'password set successfully your account is active')
-            return render(request,"auth/staff_set_password.html",{'form':form})
-        
-        else:
-            form = SetPasswordForm()
+            messages.success(request, 'Password set successfully. Your account is active.')
+            return render(request, "auth/staff_set_password.html", {'form': form})
+    else:
+        form = SetPasswordForm()
 
-    return render(
-        request,
-        "auth/staff_set_password.html",
-        {"form": form}
-    )
+    return render(request, "auth/set_password.html", {"form": form})
