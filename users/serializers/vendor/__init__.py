@@ -1,2 +1,3 @@
 from .register import VendorRegisterSerializer
 from .update import VendorUpdateSerializer
+from .get_profile import VendorRetrieveSerializer

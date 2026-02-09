@@ -9,6 +9,9 @@ from .views import (
     LogoutAPIView,
     StaffCreateAPIView,
     staff_set_password_view,
+    ProfileUpdateAPIView,
+    ProfileRetrieveAPIView,
+    SelfDeleteAPIView
 )
 
 app_name = "users"
@@ -26,6 +29,10 @@ urlpatterns = [
         ActivateUser.as_view(),
         name="activate",
     ),
+
+    path('update/profile/',ProfileUpdateAPIView.as_view(),name='update_profile'),
+    path('get/profile/',ProfileRetrieveAPIView.as_view(),name='get_profile'),
+    path('delete/user/',SelfDeleteAPIView.as_view(),name='self_delete'),
 
     # Staff
     path("staff/", StaffCreateAPIView.as_view(), name="staff_create"),

@@ -1,9 +1,11 @@
 from .client import (
     ClientRegisterSerializer,
-    ClientUpdateSerializer
+    ClientUpdateSerializer,
+    ClientRetrieveSerializer,
 )
 from .vendor import (
     VendorUpdateSerializer,
-    VendorRegisterSerializer
+    VendorRegisterSerializer,
+    VendorRetrieveSerializer,
 )
 from .staff import StaffCreateSerializer

@@ -1,19 +1,30 @@
 from rest_framework.permissions import BasePermission
-from .models import Admin , Staff
+from .models import Admin, Staff, Vendor, Client
 
-class IsAdmin(BasePermission):
+
+class IsUserType(BasePermission):
+    allowed_types = ()
+
     def has_permission(self, request, view):
-        return bool(
-            request.user
-            and request.user.is_authenticated
-            and request.user.__class__.__name__ == "Admin"
+        user = request.user
+        return (
+            user
+            and user.is_authenticated
+            and isinstance(user, self.allowed_types)
         )
 
 
-class IsStaff(BasePermission):
-    def has_permission(self, request, view):
-        return bool(
-            request.user
-            and request.user.is_authenticated
-            and request.user.__class__.__name__ == "Staff"
-        )
+class IsAdmin(IsUserType):
+    allowed_types = (Admin,)
+
+
+class IsStaff(IsUserType):
+    allowed_types = (Staff,)
+
+
+class IsClient(IsUserType):
+    allowed_types = (Client,)
+
+
+class IsVendor(IsUserType):
+    allowed_types = (Vendor,)

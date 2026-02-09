@@ -1,2 +1,3 @@
 from .register import ClientRegisterSerializer
 from .update import ClientUpdateSerializer
+from .get_profile import ClientRetrieveSerializer

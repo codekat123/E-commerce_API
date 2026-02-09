@@ -1,6 +1,7 @@
 from dotenv import load_dotenv
 from pathlib import Path
 from datetime import timedelta
+import sys
 import os
 
 
@@ -26,6 +27,7 @@ DJANGO_APPS = [
 ]
 
 EXTERNAL_APPS = [
+    'jazzmin',
     'rest_framework',
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
@@ -37,8 +39,8 @@ LOCAL_APPS = [
 
 
 INSTALLED_APPS = [
-    *DJANGO_APPS,
     *EXTERNAL_APPS,
+    *DJANGO_APPS,
     *LOCAL_APPS,
 ]
 
@@ -83,7 +85,7 @@ DATABASES = {
         "USER": os.getenv('DB_USER'),
         "PASSWORD": os.getenv('DB_PASSWORD'),
         "HOST": os.getenv('DB_HOST'),
-        "PORT": 5432,  
+        "PORT": 5432,
     }
 }
 
@@ -115,7 +117,8 @@ USE_I18N = True
 USE_TZ = True
 
 
-STATIC_URL = 'static/'
+STATIC_URL = "/static/"
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
 
 REST_FRAMEWORK = {
@@ -138,7 +141,6 @@ SIMPLE_JWT = {
     'AUTH_HEADER_TYPES': ('Bearer',),
 }
 
-import sys
 
 if 'test' in sys.argv:
     CACHES = {
@@ -167,3 +169,13 @@ CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = 'Africa/Cairo'
 
 FRONTEND_DOMAIN = os.getenv("FRONTEND_DOMAIN", "http://localhost:3000")
+
+JAZZMIN_SETTINGS = {
+    "site_title": "E-Commerce Admin",
+    "site_header": "E-Commerce Dashboard",
+    "welcome_sign": "Welcome Admin",
+}
+
+JAZZMIN_UI_TWEAKS = {
+    "theme": "darkly",
+}

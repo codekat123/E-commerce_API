@@ -5,6 +5,7 @@ from .models import (
     BaseUserModel,
     Client,
     Vendor,
+    Staff
 
 )
 
@@ -15,7 +16,7 @@ def send_email_to_client(sender,instance,created,**kwargs):
         return
     
     
-    if isinstance(instance,Client) or isinstance(instance,Vendor):
+    if isinstance(instance,(Client,Vendor)): 
         send_verification_email(instance.pk)
-    else:
+    if isinstance(instance,Staff):
         send_email_to_set_pasword(instance.pk)

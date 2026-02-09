@@ -28,11 +28,6 @@ class Staff(BaseUserModel):
         verbose_name = 'staff'
         verbose_name_plural = 'staff members'
         db_table = 'users_staff'
-        permissions = [
-            ('can_moderate_content', 'Can moderate user content'),
-            ('can_manage_vendors', 'Can manage vendors'),
-            ('can_view_analytics', 'Can view platform analytics'),
-        ]
 
     def save(self, *args, **kwargs):
         self.is_staff = True

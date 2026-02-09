@@ -22,4 +22,4 @@ def staff_set_password_view(request, uuid, token):
     else:
         form = SetPasswordForm()
 
-    return render(request, "auth/set_password.html", {"form": form})
+    return render(request, "auth/staff_set_password.html", {"form": form})
