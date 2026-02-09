@@ -9,3 +9,5 @@ from .vendor import (
     VendorRetrieveSerializer,
 )
 from .staff import StaffCreateSerializer
+
+from .login_serializers import LoginSerializer
