@@ -20,6 +20,8 @@ class BaseUserModel(AbstractBaseUser, PermissionsMixin, PolymorphicModel):
     full_name = models.CharField(
         'full name',
         max_length=100,
+        null=True,
+        blank=True,
     )
     is_active = models.BooleanField(
         'active',
@@ -48,7 +50,7 @@ class BaseUserModel(AbstractBaseUser, PermissionsMixin, PolymorphicModel):
     )
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['full_name']
+    REQUIRED_FIELDS = []
     objects = CustomUserManager()
 
     class Meta:

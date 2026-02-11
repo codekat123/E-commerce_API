@@ -31,10 +31,13 @@ EXTERNAL_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
+    'django_extensions',
+    'drf_spectacular',
 ]
 
 LOCAL_APPS = [
    'users.apps.UsersConfig',
+   'inventory',
 ]
 
 
@@ -122,6 +125,7 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 
 
 REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
@@ -178,4 +182,10 @@ JAZZMIN_SETTINGS = {
 
 JAZZMIN_UI_TWEAKS = {
     "theme": "darkly",
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'E-Commerce API',
+    'DESCRIPTION': 'API documentation',
+    'VERSION': '1.0.0',
 }
