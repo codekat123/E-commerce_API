@@ -21,14 +21,14 @@ def send_email_to_set_pasword(self,user_id):
     
 
         link = build_user_link(user,'users:staff_set_password')
-        hmtl = render_to_string(
+        html = render_to_string(
             "auth/set_password.html",
             {'user':user,'link':link}
         )
         BrevoEmailService().send(
             user.email,
             'please set your password to activate your email',
-            hmtl
+            html
         )
     except Exception as e:
         logger.exception(

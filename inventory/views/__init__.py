@@ -4,7 +4,9 @@ from .products import (
     ProductCreateAPIView,
     ProductListAPIView,
     ProductVendorListAPIView,
-    ProductDestroyAPIView
+    ProductDestroyAPIView,
+    ProductRetrieveAPIView,
+    ProductVendorRetrieveAPIView,
 )
 from .rating import (
     ProductRatingCreateAPIView,

@@ -126,8 +126,13 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 
 REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
     ),
 
     'DEFAULT_THROTTLE_CLASSES': [
@@ -138,6 +143,7 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': "config.pagination.CustomPagination",
     'PAGE_SIZE': 10,
 }
+
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=10),

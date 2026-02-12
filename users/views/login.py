@@ -1,12 +1,14 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.throttling import AnonRateThrottle
 from ..serializers import LoginSerializer
 
 
 class LoginAPIView(APIView):
     authentication_classes = []
     permission_classes = []
+    throttle_classes = [AnonRateThrottle] 
 
     def post(self, request):
         serializer = LoginSerializer(data=request.data)

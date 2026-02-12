@@ -1,5 +1,6 @@
 from rest_framework import serializers 
 from ..models import ProductRating
+from decimal import Decimal
 
 
 class ProductRatingSerializer(serializers.ModelSerializer):
@@ -14,7 +15,7 @@ class ProductRatingSerializer(serializers.ModelSerializer):
         read_only_fields = ['created_at']
 
     def validate_stars(self, value):
-        if value % 0.5 != 0:
+        if value % Decimal("0.5") != 0:
             raise serializers.ValidationError(
                 "Stars must be in 0.5 increments."
             )

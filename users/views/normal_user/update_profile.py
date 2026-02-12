@@ -1,5 +1,6 @@
 from rest_framework.generics import UpdateAPIView
 from rest_framework.exceptions import ValidationError
+from rest_framework.permissions import IsAuthenticated
 from django.shortcuts import get_object_or_404
 from ...models import Vendor, Client
 from ...serializers import (
@@ -20,7 +21,7 @@ USER_PROFILE_CONFIG = {
 
 
 class ProfileUpdateAPIView(UpdateAPIView):
-
+    permission_classes = [IsAuthenticated]
 
     def _get_user_config(self):
         user = self.request.user

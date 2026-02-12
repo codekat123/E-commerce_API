@@ -10,6 +10,7 @@ from ..serializers import (
 
 class CategoryViewSet(ModelViewSet):
     queryset = Category.objects.all()
+    lookup_field = 'slug'
 
     def get_serializer_class(self):
         if self.action in ('list', 'retrieve'):
