@@ -17,12 +17,11 @@ app_name = "users"
 
 urlpatterns = [
 
-    # Authentication
     path("auth/login/", LoginAPIView.as_view(), name="login"),
     path("auth/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
     path("auth/logout/", LogoutAPIView.as_view(), name="logout"),
 
-    # Registration
+
     path("auth/register/", RegisterAPIView.as_view(), name="register"),
     path(
         "auth/activate/<uuid:uuid>/<str:token>/",
@@ -30,12 +29,12 @@ urlpatterns = [
         name="activate",
     ),
 
-    # Profile (self)
-    path("profile/", ProfileRetrieveAPIView.as_view(), name="profile_detail"),     # GET
-    path("profile/update/", ProfileUpdateAPIView.as_view(), name="profile_update"), # PUT/PATCH
-    path("profile/delete/", SelfDeleteAPIView.as_view(), name="profile_delete"),   # DELETE
 
-    # Staff management
+    path("profile/", ProfileRetrieveAPIView.as_view(), name="get_profile"),
+    path("profile/update/", ProfileUpdateAPIView.as_view(), name="update_profile"),
+    path("profile/delete/", SelfDeleteAPIView.as_view(), name="self_delete"),
+
+
     path("staff/", StaffCreateAPIView.as_view(), name="staff_create"),
     path(
         "staff/set-password/<uuid:uuid>/<str:token>/",

@@ -1,35 +1,49 @@
-
+version: "3.9"
 
 services:
   web:
     build: .
-    command: uv run python manage.py runserver 0.0.0.0:8000
+    command: >
+      sh -c "
+      python manage.py migrate &&
+      gunicorn config.wsgi:application --bind 0.0.0.0:8000
+      "
     volumes:
       - .:/src
     ports:
       - "8000:8000"
     depends_on:
+      - db
       - redis
     env_file:
       - .env
+    environment:
+      - DJANGO_SETTINGS_MODULE=config.settings.prod
+    networks:
+      - app-network
 
   celery:
     build: .
-    command: uv run celery -A config worker -l info
+    command: celery -A config worker -l info
     volumes:
       - .:/src
     depends_on:
+      - db
       - redis
     env_file:
       - .env
+    environment:
+      - DJANGO_SETTINGS_MODULE=config.settings.prod
+    networks:
+      - app-network
 
   redis:
     image: redis:7
-    env_file:
-      - .env
     ports:
       - "6379:6379"
-    
+    networks:
+      - app-network
+
   db:
     image: postgres:16
     container_name: postgres_db
@@ -38,6 +52,14 @@ services:
       POSTGRES_DB: ${DB_NAME}
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
 
-    ports:
-      - "5432:5432"
+    networks:
+      - app-network
+
+volumes:
+  postgres_data:
+
+networks:
+  app-network:
