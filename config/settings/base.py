@@ -117,7 +117,8 @@ USE_TZ = True
 
 
 STATIC_URL = "/static/"
-STATIC_ROOT = BASE_DIR / "staticfiles"
+STATIC_ROOT = "/static/"
+
 
 
 REST_FRAMEWORK = {

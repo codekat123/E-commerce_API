@@ -13,21 +13,9 @@ from .models import (
     Vendor,
 )
 
+
 def all_field_names(model):
     return tuple(f.name for f in model._meta.fields)
-
-
-
-@admin.register(BaseUserModel)
-class UserAdmin(PolymorphicParentModelAdmin, BaseUserAdmin):
-    base_model = BaseUserModel
-    child_models = (Admin, Staff, Client, Vendor)
-
-    list_display = all_field_names(BaseUserModel)
-    search_fields = ("email",)
-    ordering = ("-updated_at",)
-    list_filter = ("is_active", "is_staff", "is_superuser", "updated_at")
-
 
 
 @admin.register(Staff)
@@ -72,3 +60,30 @@ class ClientAdmin(PolymorphicChildModelAdmin):
     ordering = ("-updated_at",)
     list_filter = ("is_active",)
     fields = all_field_names(BaseUserModel)
+
+
+
+class BaseUserChildAdmin(PolymorphicChildModelAdmin):
+    base_model = BaseUserModel
+
+    list_display = all_field_names(BaseUserModel)
+    search_fields = ("email", "full_name")
+    ordering = ("-updated_at",)
+    list_filter = ("is_active",)
+    fields = all_field_names(BaseUserModel)
+
+
+@admin.register(BaseUserModel)
+class UserAdmin(PolymorphicParentModelAdmin, BaseUserAdmin):
+    base_model = BaseUserModel
+    child_models = (
+        Admin,
+        Staff,
+        Client,
+        Vendor,
+    )
+
+    list_display = all_field_names(BaseUserModel)
+    search_fields = ("email",)
+    ordering = ("-updated_at",)
+    list_filter = ("is_active", "is_staff", "is_superuser", "updated_at")
