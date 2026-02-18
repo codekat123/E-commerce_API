@@ -34,6 +34,7 @@ EXTERNAL_APPS = [
 LOCAL_APPS = [
    'users.apps.UsersConfig',
    'inventory',
+   'notifications',
 ]
 
 

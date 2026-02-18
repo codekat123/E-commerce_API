@@ -1,0 +1,1 @@
+from .new_product_notification import send_product_review_notification

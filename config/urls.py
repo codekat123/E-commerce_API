@@ -9,6 +9,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('users/',include('users.urls',namespace='users')),
     path('inventory/',include('inventory.urls',namespace='inventory')),
+    path('notifications/',include('notifications.urls',namespace='notifications')),
 
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
     path(
