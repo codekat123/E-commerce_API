@@ -14,3 +14,4 @@ from .rating import (
     ProductRatingListAPIView,
     ProductRatingUpdateAPIView
 )
+from .search import SearchProductListAPIView

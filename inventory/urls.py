@@ -14,6 +14,7 @@ from .views import (
     ProductRatingUpdateAPIView,
     ProductRetrieveAPIView,
     ProductVendorRetrieveAPIView,
+    SearchProductListAPIView
 )
 
 app_name = "inventory"
@@ -32,7 +33,7 @@ urlpatterns = [
     path("product/", ProductListAPIView.as_view(), name="product-list"),
     path("product/category/<slug:category_slug>/", ProductListAPIView.as_view(), name="product-category-list"),
     path("product/<uuid:uuid>/", ProductRetrieveAPIView.as_view(), name="product-retrieve"),
-
+    path("product/search/", SearchProductListAPIView.as_view(), name="product-search"),
 
     path("product/vendor/", ProductVendorListAPIView.as_view(), name="product-vendor-list"),
     path("product/<uuid:uuid>/vendor/", ProductVendorRetrieveAPIView.as_view(), name="product-vendor-retrieve"),
