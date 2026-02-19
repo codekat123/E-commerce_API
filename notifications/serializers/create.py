@@ -4,7 +4,7 @@ from ..models import Notification
 
 
 class NotificationCreateSerializer(serializers.ModelSerializer):
-    receiver = serializers.PrimaryKeyRelatedField(
+    recipient = serializers.PrimaryKeyRelatedField(
         queryset=Vendor.objects.all()
     )
 
@@ -13,4 +13,4 @@ class NotificationCreateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Notification
-        fields = ['title', 'body', 'receiver']
+        fields = ['title', 'body', 'recipient']

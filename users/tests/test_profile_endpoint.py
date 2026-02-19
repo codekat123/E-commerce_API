@@ -21,7 +21,7 @@ class GetProfileEndpointTests(APITestCase):
 
     def test_get_profile_unauthenticated(self):
         response = self.client.get(reverse('users:get_profile'))
-        # RetrieveAPIView returns 401 UNAUTHORIZED for unauthenticated requests
+        
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
 
@@ -43,7 +43,7 @@ class UpdateProfileEndpointTests(APITestCase):
     def test_update_profile_unauthenticated(self):
         data = {'full_name': 'Updated Name'}
         response = self.client.put(reverse('users:update_profile'), data)
-        # UpdateAPIView returns 401 UNAUTHORIZED for unauthenticated requests
+        
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
 
@@ -65,5 +65,4 @@ class DeleteProfileEndpointTests(APITestCase):
 
     def test_delete_profile_unauthenticated(self):
         response = self.client.delete(reverse('users:self_delete'))
-        # DestroyAPIView returns 401 UNAUTHORIZED for unauthenticated requests (not 403)
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)

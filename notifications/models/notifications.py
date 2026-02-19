@@ -7,8 +7,8 @@ User = get_user_model()
 
 class Notification(models.Model):
     
-    sender = models.ForeignKey(User, related_name='sent_notifications', on_delete=models.CASCADE)
-    recipient = models.ForeignKey(User, related_name='received_notifications', on_delete=models.CASCADE)
+    sender = models.ForeignKey(User, related_name='sent_notifications', on_delete=models.CASCADE,null=True,blank=True)
+    recipient = models.ForeignKey(User, related_name='received_notifications', on_delete=models.CASCADE,null=True,blank=True)
     title = models.CharField(max_length=255)
     body = models.TextField()
     audience = models.CharField(

@@ -35,6 +35,8 @@ LOCAL_APPS = [
    'users.apps.UsersConfig',
    'inventory',
    'notifications',
+   'dashboard',
+   'cart',
 ]
 
 
@@ -167,6 +169,8 @@ else:
         }
     }
 
+
+REDIS_URL = os.getenv('REDIS')
 
 
 CELERY_BROKER_URL = os.getenv("REDIS")
