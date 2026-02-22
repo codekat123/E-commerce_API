@@ -17,7 +17,7 @@ class BaseRegisterSerializer(serializers.Serializer):
         return value
 
     def validate_full_name(self, value):
-        # Trim whitespace and ensure minimum length
+
         clean_value = value.strip()
         if len(clean_value) < 2:
             raise serializers.ValidationError(

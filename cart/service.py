@@ -161,7 +161,7 @@ class CartService:
             total_price += item_total
 
             order_items.append({
-                "product_uuid": str(product.uuid),
+                "product": product,
                 "quantity": quantity,
                 "price": product.price,
             })

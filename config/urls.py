@@ -12,6 +12,7 @@ urlpatterns = [
     path('notifications/',include('notifications.urls',namespace='notifications')),
     path('dashboard/',include('dashboard.urls',namespace='dashboard')),
     path('cart/',include('cart.urls',namespace='cart')),
+    path('order/',include('order.urls',namespace='order')),
 
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
     path(

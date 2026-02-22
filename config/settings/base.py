@@ -1,9 +1,9 @@
+from celery.schedules import crontab
+from datetime import timedelta
 from dotenv import load_dotenv
 from pathlib import Path
-from datetime import timedelta
 import sys
 import os
-
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -29,6 +29,7 @@ EXTERNAL_APPS = [
     'rest_framework_simplejwt.token_blacklist',
     'django_extensions',
     'drf_spectacular',
+    'phonenumber_field',
 ]
 
 LOCAL_APPS = [
@@ -37,6 +38,7 @@ LOCAL_APPS = [
    'notifications',
    'dashboard',
    'cart',
+   'order',
 ]
 
 
@@ -179,6 +181,14 @@ CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = 'Africa/Cairo'
+
+
+CELERY_BEAT_SCHEDULE = {
+    "delete-old-notifications-every-day": {
+        "task": "notifications.tasks.delete_old_message.delete_old_notifications",
+        "schedule": crontab(hour=3, minute=0), 
+    },
+}
 
 FRONTEND_DOMAIN = os.getenv("FRONTEND_DOMAIN", "http://localhost:3000")
 
