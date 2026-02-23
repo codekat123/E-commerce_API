@@ -39,6 +39,7 @@ LOCAL_APPS = [
    'dashboard',
    'cart',
    'order',
+   'payment',
 ]
 
 
@@ -207,3 +208,7 @@ SPECTACULAR_SETTINGS = {
     'DESCRIPTION': 'API documentation',
     'VERSION': '1.0.0',
 }
+
+
+STRIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY")
+STRIPE_PUBLISHABLE_KEY = os.getenv("STRIPE_PUBLISHABLE_KEY")

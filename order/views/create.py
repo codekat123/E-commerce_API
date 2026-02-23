@@ -1,6 +1,5 @@
 from rest_framework.generics import CreateAPIView
 from django.db import transaction
-from inventory.models import Product
 from users.permissions import IsClient
 from ..serializers import OrderCreateSerializer
 from ..models import OrderItem
