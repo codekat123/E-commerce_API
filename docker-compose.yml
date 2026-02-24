@@ -15,6 +15,7 @@ services:
 
   web:
     build: .
+    container_name: django_app
     command: >
       sh -c "
       until pg_isready -h db -p 5432; do
@@ -41,9 +42,10 @@ services:
 
   celery:
     build: .
+    container_name: celery_worker
     command: celery -A config worker -l info
     volumes:
-      - .:/src
+      - .:/config
     depends_on:
       - db
       - redis
@@ -56,6 +58,7 @@ services:
 
   redis:
     image: redis:7
+    container_name: redis_server
     networks:
       - app-network
 
@@ -72,6 +75,17 @@ services:
     networks:
       - app-network
 
+  # stripe:
+  #   image: stripe/stripe-cli
+  #   container_name: stripe_cli
+  #   command: listen --forward-to web:8000/payment/stripe/webhook/
+  #   env_file:
+  #     - .env
+  #   depends_on:
+  #     - web
+  #   networks:
+  #     - app-network
+
 volumes:
   postgres_data:
   static_volume:
@@ -79,3 +93,4 @@ volumes:
 
 networks:
   app-network:
+    driver: bridge

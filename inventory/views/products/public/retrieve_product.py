@@ -8,4 +8,4 @@ class ProductRetrieveAPIView(RetrieveAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductRetrieveSerializer
     permission_classes = [IsClient | IsAdmin | IsStaff]
-    lookup_field = 'uuuid'
+    lookup_field = 'uuid'

@@ -23,8 +23,8 @@ class StripeService:
                     "quantity": 1,
                 }
             ],
-            success_url="https://yourfrontend.com/success",
-            cancel_url="https://yourfrontend.com/cancel",
+            success_url="https://example.com/success",
+            cancel_url="https://example.com/cancel",
             metadata={
                 "order_id": order.id,
                 "user_id": user.id,

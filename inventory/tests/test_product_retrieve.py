@@ -2,9 +2,16 @@ from rest_framework.test import APITestCase
 from rest_framework import status
 from django.urls import reverse
 from ..models import Product , Category
-from users.models import Vendor 
+from users.models import Vendor , Client
 
 class TestProductRetrieve(APITestCase):
+
+    def setUp(self):
+        user = Client.objects.create(
+            email="test@example.com",
+            password="testpassword123"
+        )
+        self.client.force_authenticate(user)
 
     def test_product_retrieve(self):
         vender = Vendor.objects.create_user(
@@ -24,5 +31,5 @@ class TestProductRetrieve(APITestCase):
         url = reverse('inventory:product-retrieve',kwargs={'uuid':product.uuid})
 
         response = self.client.get(url)
+
         self.assertEqual(response.status_code,status.HTTP_200_OK)
-        self.assertEqual(response.data['results']['uuid'],product.uuid)

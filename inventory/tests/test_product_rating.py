@@ -44,7 +44,7 @@ class TestProductRating(APITestCase):
 
     def test_list_ratings_for_product(self):
  
-        # Create some ratings
+
         ProductRating.objects.create(
             customer=self.client_user,
             product=self.product,
@@ -71,14 +71,12 @@ class TestProductRating(APITestCase):
         self.assertGreaterEqual(len(results), 2)
 
     def test_list_ratings_requires_client_authentication(self):
-        """Unauthenticated users cannot list ratings"""
         url = reverse('inventory:product-rating-list', kwargs={'uuid': self.product.uuid})
         response = self.client.get(url)
         
         self.assertEqual(status.HTTP_401_UNAUTHORIZED, response.status_code)
 
     def test_create_rating_requires_valid_stars(self):
-        """Rating creation validates stars field - may fail due to Decimal/float bug"""
         self.client.force_authenticate(self.client_user)
         url = reverse('inventory:product-rating-create', kwargs={'uuid': self.product.uuid})
         

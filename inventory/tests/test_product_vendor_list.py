@@ -63,9 +63,7 @@ class TestProductVendorList(APITestCase):
         
         self.assertEqual(status.HTTP_200_OK, response.status_code)
         data = response.data
-        print(response.data)
-        print("Vendor FK type:", Product._meta.get_field("vendor").related_model)
-        
+
         results = data.get('results', [data] if isinstance(data, list) else [])
         product_names = [item.get('name') for item in results]
         

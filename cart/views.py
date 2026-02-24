@@ -56,10 +56,3 @@ class CartItemView(APIView):
 
         return Response(data, status=status.HTTP_200_OK)
         
-
-class CheckoutView(APIView):
-    permission_classes = [IsClient]
-
-    def post(self, request):
-        data = CartService.checkout(request.user)
-        return Response(data, status=status.HTTP_200_OK)

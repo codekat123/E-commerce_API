@@ -41,7 +41,7 @@ class OrderCreateAPITest(APITestCase):
 
         self.url = reverse('order:order-create')
         self.client.force_authenticate(self.user)
-
+  
     @patch("order.views.create.CartService.get_cart")
     def test_create_order_successfully(self, mock_get_cart):
         mock_get_cart.return_value = {
