@@ -11,3 +11,4 @@ from .vendor import (
 from .staff import StaffCreateSerializer
 
 from .login_serializers import LoginSerializer
+from .delete import AccountDeletionSerializer

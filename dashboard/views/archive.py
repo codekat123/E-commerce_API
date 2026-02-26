@@ -36,3 +36,4 @@ class ProductArchive(GenericViewSet):
         product.is_archived = False
         product.save(update_fields=["is_archived"])
         return Response(status=status.HTTP_204_NO_CONTENT)
+    

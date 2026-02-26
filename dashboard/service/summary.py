@@ -12,9 +12,9 @@ class VendorDashboardService:
             Product.objects
             .filter(vendor=user)
             .aggregate(
-                total_products=Count("id"),
-                active_products=Count("id", filter=Q(is_archived=False)),
-                archived_products=Count("id", filter=Q(is_archived=True)),
+                total_products=Count("uuid"),
+                active_products=Count("uuid", filter=Q(is_archived=False)),
+                archived_products=Count("uuid", filter=Q(is_archived=True)),
             )
         )
 

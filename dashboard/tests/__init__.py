@@ -1,0 +1,2 @@
+from .activate_product import TestActivateProduct
+from .summary import VendorSummaryViewTest

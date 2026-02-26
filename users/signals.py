@@ -8,7 +8,7 @@ from .models import (
     Staff
 
 )
-
+from wallet.models import Wallet
 
 @receiver(post_save,sender=BaseUserModel)
 def send_email_to_client(sender,instance,created,**kwargs):
@@ -18,5 +18,8 @@ def send_email_to_client(sender,instance,created,**kwargs):
     
     if isinstance(instance,(Client,Vendor)): 
         send_verification_email(instance.pk)
+        Wallet.objects.create(
+            user=instance
+        )
     if isinstance(instance,Staff):
         send_email_to_set_pasword(instance.pk)

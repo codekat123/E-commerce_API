@@ -1,7 +1,5 @@
 from django.urls import path
 from rest_framework.routers import DefaultRouter
-
-from dashboard.service.summary import VendorDashboardService
 from .views import (
     activate_product,
     DeactivateProductView,

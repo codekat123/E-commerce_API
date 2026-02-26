@@ -14,6 +14,7 @@ urlpatterns = [
     path('cart/',include('cart.urls',namespace='cart')),
     path('order/',include('order.urls',namespace='order')),
     path('payment/',include('payment.urls',namespace='payment')),
+    path('wallet/',include('wallet.urls',namespace='wallet')),
 
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
     path(

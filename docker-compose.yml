@@ -75,16 +75,16 @@ services:
     networks:
       - app-network
 
-  # stripe:
-  #   image: stripe/stripe-cli
-  #   container_name: stripe_cli
-  #   command: listen --forward-to web:8000/payment/stripe/webhook/
-  #   env_file:
-  #     - .env
-  #   depends_on:
-  #     - web
-  #   networks:
-  #     - app-network
+  stripe:
+    image: stripe/stripe-cli
+    container_name: stripe_cli
+    command: listen --forward-to web:8000/payment/stripe/webhook/
+    env_file:
+      - .env
+    depends_on:
+      - web
+    networks:
+      - app-network
 
 volumes:
   postgres_data:
