@@ -78,7 +78,7 @@ services:
   stripe:
     image: stripe/stripe-cli
     container_name: stripe_cli
-    command: listen --forward-to web:8000/payment/stripe/webhook/
+    command: listen --forward-to web:8000/wallet/webhook/stripe/
     env_file:
       - .env
     depends_on:

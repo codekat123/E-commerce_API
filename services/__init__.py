@@ -1,6 +1,3 @@
 from .email import BrevoEmailService
-from .payment import (
-    StripeDepositService,
-    StripeService,
-    StripeWithdrawService
-)
+from .stripe import StripeService
+from .stripe_connect import StripeConnectService

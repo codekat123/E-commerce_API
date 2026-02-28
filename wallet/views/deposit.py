@@ -1,7 +1,7 @@
 from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
 from ..serializer import DepositSerializer
-from services import StripeDepositService
+from services import StripeService
 
 
 class DepositAPIView(GenericAPIView):
@@ -11,7 +11,7 @@ class DepositAPIView(GenericAPIView):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
-        session = StripeDepositService.create_deposit_session(
+        session = StripeService.create_deposit_session(
             amount=serializer.validated_data["amount"],
             user=request.user
         )

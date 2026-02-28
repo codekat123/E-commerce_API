@@ -39,7 +39,6 @@ LOCAL_APPS = [
    'dashboard',
    'cart',
    'order',
-   'payment',
    'wallet',
 ]
 
@@ -195,9 +194,9 @@ CELERY_BEAT_SCHEDULE = {
 FRONTEND_DOMAIN = os.getenv("FRONTEND_DOMAIN", "http://localhost:3000")
 
 JAZZMIN_SETTINGS = {
-    "site_title": "E-Commerce Admin",
-    "site_header": "E-Commerce Dashboard",
-    "welcome_sign": "Welcome Admin",
+    "site_title": "Ahmed Gaber",
+    "site_header": "E-Commerce",
+    "welcome_sign": "Hi",
 }
 
 JAZZMIN_UI_TWEAKS = {
@@ -213,5 +212,4 @@ SPECTACULAR_SETTINGS = {
 
 STRIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY")
 STRIPE_PUBLISHABLE_KEY = os.getenv("STRIPE_PUBLISHABLE_KEY")
-STRIPE_WEBHOOK_SECRET = os.getenv("STRIPE_WEBHOOK_SECRET")
 STRIPE_WEBHOOK_SECRET = os.getenv("STRIPE_WEBHOOK_SECRET")

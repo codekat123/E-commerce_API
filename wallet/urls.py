@@ -4,6 +4,7 @@ from .views import (
     StripeWebhookDepositAPIView,
     DepositAPIView,
     WithdrawAPIView,
+    StripeOnboardingAPIView,
 )
 
 
@@ -15,4 +16,5 @@ urlpatterns = [
     path('deposit/', DepositAPIView.as_view(), name='deposit'),
     path('webhook/stripe/', StripeWebhookDepositAPIView.as_view(), name='stripe-webhook-deposit'),
     path('withdraw/', WithdrawAPIView.as_view(), name='withdraw'),
+    path('stripe-onboarding/', StripeOnboardingAPIView.as_view(), name='stripe-onboarding'),
 ]

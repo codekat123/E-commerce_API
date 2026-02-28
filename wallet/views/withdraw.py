@@ -17,7 +17,7 @@ class WithdrawAPIView(GenericAPIView):
         tx = WalletService.withdraw(
             user=request.user,
             amount=serializer.validated_data["amount"],
-            stripe_account_id=serializer.validated_data["stripe_account_id"]
+            stripe_account_id=self.request.user.stripe_account_id
         )
 
         return Response({

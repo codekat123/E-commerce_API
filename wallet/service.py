@@ -81,7 +81,7 @@ class WalletService:
 
         Transaction.objects.create(
             wallet=wallet,
-            type=TransactionType.PAYMENT,
+            transaction_type=TransactionType.PAYMENT,
             amount=order.total_price,
         )
 

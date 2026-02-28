@@ -1,0 +1,3 @@
+from .get_wallet import TestMyWalletAPIView
+from .deposit import TestDepositAPIView
+from .webhook_deposit import TestStripeWebhookDepositAPIView

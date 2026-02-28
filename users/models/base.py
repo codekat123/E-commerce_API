@@ -25,8 +25,7 @@ class BaseUserModel(AbstractBaseUser, PermissionsMixin, PolymorphicModel):
     )
     is_active = models.BooleanField(
         'active',
-        default=False,
-        help_text='Designates whether this user should be treated as active.',
+        default=False
     )
     is_staff = models.BooleanField(
         'staff status',
@@ -48,6 +47,8 @@ class BaseUserModel(AbstractBaseUser, PermissionsMixin, PolymorphicModel):
         verbose_name='groups',
         help_text='The groups this user belongs to.',
     )
+
+    stripe_account_id = models.CharField(max_length=255, null=True, blank=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []

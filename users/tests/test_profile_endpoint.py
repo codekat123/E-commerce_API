@@ -59,10 +59,14 @@ class DeleteProfileEndpointTests(APITestCase):
     def test_delete_profile_authenticated(self):
         user_id = self.user.id
         self.client.force_authenticate(user=self.user)
-        response = self.client.delete(reverse('users:self_delete'))
+        payload = {'password': 'testpass123'}
+        response = self.client.delete(reverse('users:self_delete'), data=payload, format='json')
+        
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertFalse(Client.objects.filter(id=user_id).exists())
 
     def test_delete_profile_unauthenticated(self):
-        response = self.client.delete(reverse('users:self_delete'))
+        payload = {'password': 'testpass123'}
+
+        response = self.client.delete(reverse('users:self_delete'), data=payload, format='json')
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
