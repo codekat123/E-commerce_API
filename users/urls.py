@@ -24,7 +24,7 @@ urlpatterns = [
 
     path("auth/register/", RegisterAPIView.as_view(), name="register"),
     path(
-        "auth/activate/<uuid:uuid>/<str:token>/",
+        "auth/activate/<uidb64>/<str:token>/",
         ActivateUser.as_view(),
         name="activate",
     ),
@@ -37,7 +37,7 @@ urlpatterns = [
 
     path("staff/", StaffCreateAPIView.as_view(), name="staff_create"),
     path(
-        "staff/set-password/<uuid:uuid>/<str:token>/",
+        "staff/set-password/<uidb64>/<str:token>/",
         staff_set_password_view,
         name="staff_set_password",
     ),

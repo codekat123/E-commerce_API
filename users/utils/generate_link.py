@@ -12,5 +12,5 @@ def build_user_link(user,view_name):
 
     return (
         f"{settings.FRONTEND_DOMAIN.rstrip('/')}"
-        f"{reverse(view_name,kwargs={'token':token,'uuid':uuid})}"
+        f"{reverse(view_name,kwargs={'token':token,'uidb64':uuid})}"
     )

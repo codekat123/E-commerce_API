@@ -5,10 +5,9 @@ from pathlib import Path
 import sys
 import os
 
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 load_dotenv()
-
 
 
 SECRET_KEY = os.getenv("SECRET_KEY")
@@ -30,6 +29,7 @@ EXTERNAL_APPS = [
     'django_extensions',
     'drf_spectacular',
     'phonenumber_field',
+    'polymorphic',
 ]
 
 LOCAL_APPS = [
@@ -65,7 +65,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR,'templates')],
+        'DIRS': [BASE_DIR / "templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

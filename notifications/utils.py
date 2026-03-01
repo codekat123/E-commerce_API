@@ -29,14 +29,14 @@ def get_notification_for_vendors():
 def get_staff():
     return (
         Staff.objects
-        .create(full_name='Ahmed Gaber',email='ahmed@gmail.com',password='consider_this_strongest_password_ever')
+        .create(full_name='Ahmed Gaber',email='ahmed@gmail.com',password='consider_this_strongerest_password_ever')
     )
 
 def get_vendor():
     return (
         Vendor.objects
         .create(
-            full_name='Ahmed Gaber',email='vendor@gmail.com',password='consider_this_strongest_password_ever'
+            full_name='Ahmed Gaber',email='vendor@gmail.com',password='consider_this_strongerst_password_ever'
         )
     )
 

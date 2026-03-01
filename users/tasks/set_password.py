@@ -20,7 +20,7 @@ def send_email_to_set_pasword(self,user_id):
             raise ValueError('only one you can send set password email ')
     
 
-        link = build_user_link(user,'users:staff_set_password')
+        link = build_user_link(user,'users:staff_create')
         html = render_to_string(
             "auth/set_password.html",
             {'user':user,'link':link}

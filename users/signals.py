@@ -6,11 +6,12 @@ from .models import (
     Client,
     Vendor,
     Staff
-
 )
+
 from wallet.models import Wallet
 
-@receiver(post_save,sender=BaseUserModel)
+@receiver(post_save, sender=Client)
+@receiver(post_save, sender=Vendor)
 def send_email_to_client(sender,instance,created,**kwargs):
     if not created:
         return

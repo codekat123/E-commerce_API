@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.exceptions import ValidationError
 from polymorphic.models import PolymorphicModel
+from django.core.exceptions import ValidationError
 from django.contrib.auth.models import (
     AbstractBaseUser,
     PermissionsMixin,
@@ -61,7 +62,16 @@ class BaseUserModel(AbstractBaseUser, PermissionsMixin, PolymorphicModel):
     def __str__(self):
         return f"{self.full_name} ({self.email})"
 
+
     def clean(self):
         super().clean()
+    
+        if not self.full_name or not self.full_name.strip():
+            raise ValidationError({
+                "full_name": "Full name is required."
+            })
+    
         if len(self.full_name.strip()) < 2:
-            raise ValidationError({'full_name': 'Full name must be at least 2 characters.'})
+            raise ValidationError({
+                "full_name": "Full name must be at least 2 characters."
+            })

@@ -17,13 +17,9 @@ class TestMyWalletAPIView(APITestCase):
             tax_id="TAX-002"
         )
 
-        self.wallet = Wallet.objects.create(
-            user=self.vendor,
-            balance=334.30
-        )
+        Wallet.objects.filter(user=self.vendor).update(balance=334.30)
 
         self.url = reverse("wallet:my-wallet")
-
 
     def test_authenticated_vendor_can_get_wallet(self):
         self.client.force_authenticate(user=self.vendor)

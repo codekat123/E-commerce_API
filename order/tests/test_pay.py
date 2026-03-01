@@ -20,10 +20,7 @@ class PayOrderAPITestCase(APITestCase):
             address='123 Main St',
             phone_number='+1234567890',
         )
-        Wallet.objects.create(
-            user=self.user,
-            balance=200.00
-        )
+        Wallet.objects.filter(user=self.user).update(balance=200.00)
         self.client.force_authenticate(user=self.user)
 
     def test_pay_order(self):

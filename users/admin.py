@@ -15,7 +15,11 @@ from .models import (
 
 
 def all_field_names(model):
-    return tuple(f.name for f in model._meta.fields)
+    return tuple(
+        f.name
+        for f in model._meta.fields
+        if f.editable and not f.auto_created
+    )
 
 
 @admin.register(Staff)
@@ -63,14 +67,14 @@ class ClientAdmin(PolymorphicChildModelAdmin):
 
 
 
-class BaseUserChildAdmin(PolymorphicChildModelAdmin):
-    base_model = BaseUserModel
+# class BaseUserChildAdmin(PolymorphicChildModelAdmin):
+#     base_model = BaseUserModel
 
-    list_display = all_field_names(BaseUserModel)
-    search_fields = ("email", "full_name")
-    ordering = ("-updated_at",)
-    list_filter = ("is_active",)
-    fields = all_field_names(BaseUserModel)
+#     list_display = all_field_names(BaseUserModel)
+#     search_fields = ("email", "full_name")
+#     ordering = ("-updated_at",)
+#     list_filter = ("is_active",)
+#     fields = all_field_names(BaseUserModel)
 
 
 @admin.register(BaseUserModel)

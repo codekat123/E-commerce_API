@@ -23,7 +23,7 @@ def send_verification_email(self, user_id):
         if not user or isinstance(user, (Admin, Staff)):
             return
 
-        link = build_user_link(user, "users:activate")
+        link = build_user_link(user, 'users:activate')
 
         html = render_to_string(
             "auth/verification_email.html",
