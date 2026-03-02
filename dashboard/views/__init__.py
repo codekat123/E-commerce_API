@@ -4,3 +4,4 @@ from .activate_product import (
 )
 from .archive import ProductArchive
 from .summary import VendorSummaryView
+from .generate_report import VendorReportAPIView

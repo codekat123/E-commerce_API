@@ -5,6 +5,7 @@ from .views import (
     DeactivateProductView,
     ProductArchive,
     VendorSummaryView,
+    VendorReportAPIView
     
 )
 
@@ -19,4 +20,5 @@ urlpatterns = [
     path('products/<uuid:uuid>/activate/', activate_product.ActivateProductView.as_view(), name='activate-product'),
     path('products/<uuid:uuid>/deactivate/', DeactivateProductView.as_view(), name='deactivate-product'),
     path('dashboard/summary/', VendorSummaryView.as_view(), name='vendor-dashboard-summary'),
+    path('dashboard/report/', VendorReportAPIView.as_view(), name='vendor-report'),
 ] + router.urls
