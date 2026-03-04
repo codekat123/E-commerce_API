@@ -124,5 +124,15 @@ Use `docker-compose -f docker-compose.prod.yml` (not included) or your own orche
 
 ---
 
+## 📊 Architecture Visualizations
+
+To help understand the system design, several diagrams are available:
+
+- **Database schema:** https://drawsql.app/teams/ahmedgader/diagrams/e-commmerce
+- **Cache architecture:** https://miro.com/welcomeonboard/SnVERElIWHBoem41cGE1dTFiVWYrVTNkV3VML1krcTFCaDc2elN1dHB6SjI1MFUxU3R2dkU3NThqUGg4V3VzeWduQSthdmlPT2ZrcmxGVUY4bVpDMTFRbkx5RU5GSm54Q3daMDlxQ0J4M253RkJiR3J2aExsWDFtcE1heEhlQXp0R2lncW1vRmFBVnlLcVJzTmdFdlNRPT0hdjE=?share_link_id=745244696857
+- **Service flow:** https://miro.com/welcomeonboard/Wit5VDFQdG1kUzFTNGN6R0hqSU8ra2FOT3AxNm04eFVwY1d5RlY4WlBqRi9GLzlvcm45ckVKa2pWZktpRmxNaDYya1pOTFdiUGVWYVQxOHhwSXQ3cEZRbkx5RU5GSm54Q3daMDlxQ0J4M2wvMjNLd3RXb1JVL2RqRlkzOG5jVjFyVmtkMG5hNDA3dVlncnBvRVB2ZXBnPT0hdjE=?share_link_id=54490605825
+
+---
+
 
 
