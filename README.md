@@ -3,7 +3,16 @@
 This repository contains a **Django-based e‑commerce backend** built as a RESTful API. It implements user authentication, shopping cart, inventory management, order processing, wallet operations, notifications, and an admin dashboard. The project is configured for containerized development and uses Celery for asynchronous tasks.
 
 ---
+## 🌐 Live Deployment
 
+The API is deployed on an AWS EC2 instance and accessible over HTTPS:
+
+* **Base URL:** https://ahmed-api.duckdns.org/
+* **API Docs (Swagger):** https://ahmed-api.duckdns.org/swagger/
+
+The application is running behind **Nginx** as a reverse proxy and served using **Gunicorn**, with HTTPS enabled via **Let's Encrypt**.
+
+---
 ## 🔧 Key Technologies
 
 - **Python 3.12** / Django 6.0
