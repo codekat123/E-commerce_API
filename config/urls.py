@@ -14,7 +14,7 @@ urlpatterns = [
     path("cart/", include("cart.urls", namespace="cart")),
     path("order/", include("order.urls", namespace="order")),
     path("wallet/", include("wallet.urls", namespace="wallet")),
-    path("ai_agent/", include("ai_agent.api.urls")),
+    path("api/ai/", include("ai_agent.api.urls")),
     path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
     path(
         "swagger/",

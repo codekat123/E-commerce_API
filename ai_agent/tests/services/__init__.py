@@ -1,0 +1,2 @@
+from .test_chat_service import ChatServiceTests
+from .test_conversatoin_service import ConversationServiceTests
