@@ -147,6 +147,9 @@ SIMPLE_JWT = {
     "AUTH_HEADER_TYPES": ("Bearer",),
 }
 
+AI_AGENT = {
+    "MEMORY_HISTORY_LIMIT": 20,
+}
 
 if "test" in sys.argv:
     CACHES = {

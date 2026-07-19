@@ -13,6 +13,7 @@ from langchain_core.messages import (
 
 from ai_agent.llm.config import gemini_config
 from ai_agent.llm.exceptions import GeminiRequestError
+from ai_agent.llm.parser import GeminiResponseParser
 
 
 class GeminiClient:
@@ -20,10 +21,11 @@ class GeminiClient:
     Wrapper around the Google GenAI SDK.
     """
 
-    def __init__(self) -> None:
+    def __init__(self, parser: GeminiResponseParser | None = None) -> None:
         self._client = genai.Client(
             api_key=gemini_config.api_key,
         )
+        self._parser = parser or GeminiResponseParser()
 
     def chat(
         self,
@@ -34,7 +36,7 @@ class GeminiClient:
 
             response = self._generate_content(contents)
 
-            return self._parse_response(response)
+            return self._parser.parse(response)
 
         except Exception as exc:
             raise GeminiRequestError("Failed to generate Gemini response.") from exc
@@ -67,26 +69,6 @@ class GeminiClient:
             )
 
         return contents
-
-    def _generate_content(
-        self,
-        contents: list[types.Content],
-    ) -> types.GenerateContentResponse:
-        return self._client.models.generate_content(
-            model=gemini_config.model,
-            contents=contents,
-            config=types.GenerateContentConfig(
-                temperature=gemini_config.temperature,
-            ),
-        )
-
-    def _parse_response(
-        self,
-        response: types.GenerateContentResponse,
-    ) -> AIMessage:
-        return AIMessage(
-            content=response.text or "",
-        )
 
 
 @lru_cache(maxsize=1)
