@@ -3,30 +3,24 @@ from __future__ import annotations
 from abc import ABC, abstractmethod
 from typing import Any
 
-from django.contrib.auth import get_user_model
-
-User = get_user_model()
+from ai_agent.tools.schema import ToolDefinition
 
 
 class Tool(ABC):
-    """
-    Base class for all AI tools.
-    """
-
-    name: str
-    description: str
+    @property
+    @abstractmethod
+    def definition(self) -> ToolDefinition:
+        """
+        Provider-agnostic description of this tool.
+        """
 
     @abstractmethod
     def execute(
         self,
         *,
-        user: User,
+        user,
         arguments: dict[str, Any],
-    ) -> Any:
+    ) -> str:
         """
         Execute the tool.
-
-        Implementations are responsible for performing any required
-        authorization and business logic.
         """
-        raise NotImplementedError

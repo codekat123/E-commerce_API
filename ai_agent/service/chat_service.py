@@ -72,9 +72,7 @@ class ChatService:
             conversation=conversation,
         )
 
-        initial_state = self._build_initial_state(
-            messages=context_messages,
-        )
+        initial_state = self._build_initial_state(messages=context_messages, user=user)
 
         final_state = self._graph.invoke(initial_state)
 
@@ -111,10 +109,12 @@ class ChatService:
     def _build_initial_state(
         self,
         *,
+        user: User,
         messages: list[BaseMessage],
     ) -> GraphState:
         return self._graph_state_factory.create(
             messages=messages,
+            user=user,
         )
 
     def _extract_response(

@@ -1,19 +1,18 @@
 from __future__ import annotations
 
-from functools import lru_cache
-
 from google import genai
 from google.genai import types
 from langchain_core.messages import (
     AIMessage,
     AnyMessage,
-    HumanMessage,
-    SystemMessage,
 )
 
 from ai_agent.llm.config import gemini_config
 from ai_agent.llm.exceptions import GeminiRequestError
+from ai_agent.llm.gemini_message_serializer import GeminiMessageSerializer
 from ai_agent.llm.parser import GeminiResponseParser
+from ai_agent.llm.tool_converter import GeminiToolConverter
+from ai_agent.tools.registry import ToolRegistry
 
 
 class GeminiClient:
@@ -21,18 +20,35 @@ class GeminiClient:
     Wrapper around the Google GenAI SDK.
     """
 
-    def __init__(self, parser: GeminiResponseParser | None = None) -> None:
+    def __init__(
+        self,
+        *,
+        tool_registry: ToolRegistry,
+        parser: GeminiResponseParser | None = None,
+    ) -> None:
         self._client = genai.Client(
             api_key=gemini_config.api_key,
         )
+
         self._parser = parser or GeminiResponseParser()
+        self._serializer = GeminiMessageSerializer()
+
+        converter = GeminiToolConverter()
+
+        self._tools = [
+            types.Tool(
+                function_declarations=converter.convert_many(
+                    tool_registry.definitions(),
+                ),
+            ),
+        ]
 
     def chat(
         self,
         messages: list[AnyMessage],
     ) -> AIMessage:
         try:
-            contents = self._convert_messages(messages)
+            contents = self._serializer.serialize(messages)
 
             response = self._generate_content(contents)
 
@@ -41,39 +57,14 @@ class GeminiClient:
         except Exception as exc:
             raise GeminiRequestError("Failed to generate Gemini response.") from exc
 
-    def _convert_messages(
+    def _generate_content(
         self,
-        messages: list[AnyMessage],
-    ) -> list[types.Content]:
-        contents: list[types.Content] = []
-
-        for message in messages:
-            if isinstance(message, HumanMessage):
-                role = "user"
-            elif isinstance(message, AIMessage):
-                role = "model"
-            elif isinstance(message, SystemMessage):
-                role = "user"
-            else:
-                raise TypeError(f"Unsupported message type: {type(message)!r}")
-
-            contents.append(
-                types.Content(
-                    role=role,
-                    parts=[
-                        types.Part.from_text(
-                            text=message.content,
-                        )
-                    ],
-                )
-            )
-
-        return contents
-
-
-@lru_cache(maxsize=1)
-def get_gemini_client() -> GeminiClient:
-    """
-    Return a cached Gemini client.
-    """
-    return GeminiClient()
+        contents: list[types.Content],
+    ):
+        return self._client.models.generate_content(
+            model=gemini_config.model,
+            contents=contents,
+            config=types.GenerateContentConfig(
+                tools=self._tools,
+            ),
+        )

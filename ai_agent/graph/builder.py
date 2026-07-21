@@ -5,34 +5,54 @@ from functools import lru_cache
 from langgraph.graph import END, START, StateGraph
 from langgraph.graph.state import CompiledStateGraph
 
-from ai_agent.graph.nodes.chat import chat_node
+from ai_agent.graph.container import build_container
+from ai_agent.graph.routing import (
+    END_ROUTE,
+    TOOL_NODE,
+    should_continue,
+)
 from ai_agent.graph.state import GraphState
 
 CHAT_NODE = "chat"
 
 
 def build_graph() -> CompiledStateGraph:
-    """
-    Build and compile the AI support graph.
-    """
+    container = build_container()
 
     builder = StateGraph(GraphState)
 
-    builder.add_node(CHAT_NODE, chat_node)
+    builder.add_node(
+        CHAT_NODE,
+        container.chat_node,
+    )
 
-    builder.add_edge(START, CHAT_NODE)
-    builder.add_edge(CHAT_NODE, END)
+    builder.add_node(
+        TOOL_NODE,
+        container.tool_node,
+    )
+
+    builder.add_edge(
+        START,
+        CHAT_NODE,
+    )
+
+    builder.add_conditional_edges(
+        CHAT_NODE,
+        should_continue,
+        {
+            TOOL_NODE: TOOL_NODE,
+            END_ROUTE: END,
+        },
+    )
+
+    builder.add_edge(
+        TOOL_NODE,
+        CHAT_NODE,
+    )
 
     return builder.compile()
 
 
 @lru_cache(maxsize=1)
 def get_graph() -> CompiledStateGraph:
-    """
-    Return the compiled graph.
-
-    The graph is compiled only once during the lifetime
-    of the Django process.
-    """
-
     return build_graph()

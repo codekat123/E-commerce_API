@@ -1,18 +1,29 @@
 from __future__ import annotations
 
 from ai_agent.graph.state import GraphState
-from ai_agent.llm.gemini_client import get_gemini_client
+from ai_agent.llm.gemini_client import GeminiClient
 
 
-def chat_node(state: GraphState) -> dict:
+class ChatNode:
     """
-    Generate an AI response using Gemini.
+    LangGraph node responsible for generating an AI response.
     """
 
-    client = get_gemini_client()
+    def __init__(
+        self,
+        *,
+        gemini_client: GeminiClient,
+    ) -> None:
+        self._gemini_client = gemini_client
 
-    response = client.chat(state["messages"])
+    def __call__(
+        self,
+        state: GraphState,
+    ) -> dict:
+        response = self._gemini_client.chat(
+            state["messages"],
+        )
 
-    return {
-        "messages": [response],
-    }
+        return {
+            "messages": [response],
+        }

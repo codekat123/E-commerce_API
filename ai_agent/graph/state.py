@@ -2,9 +2,12 @@ from __future__ import annotations
 
 from typing import Annotated, Any
 
+from django.contrib.auth import get_user_model
 from langchain_core.messages import AnyMessage
 from langgraph.graph.message import add_messages
 from typing_extensions import TypedDict
+
+User = get_user_model()
 
 StateUpdate = dict[str, Any]
 
@@ -19,3 +22,4 @@ class GraphState(TypedDict):
     """
 
     messages: Annotated[list[AnyMessage], add_messages]
+    user: User
