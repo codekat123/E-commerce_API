@@ -2,8 +2,6 @@ from __future__ import annotations
 
 from typing import Any
 
-from django.contrib.auth import get_user_model
-
 from ai_agent.tools.base import Tool
 from ai_agent.tools.schema import (
     ToolDefinition,
@@ -11,35 +9,36 @@ from ai_agent.tools.schema import (
     ToolParameterType,
 )
 
-User = get_user_model()
 
-
-class WeatherTool(Tool):
-    @property
-    def definition(self) -> ToolDefinition:
-        return ToolDefinition(
-            name="get_weather",
-            description="Get the current weather for a city.",
+class FakeTool(Tool):
+    def __init__(
+        self,
+        *,
+        name: str = "fake_tool",
+    ) -> None:
+        self._definition = ToolDefinition(
+            name=name,
+            description="Fake tool used for tests.",
             parameters=[
                 ToolParameter(
-                    name="city",
+                    name="value",
                     type=ToolParameterType.STRING,
-                    description="City name.",
+                    description="Dummy value.",
                     required=True,
                 ),
             ],
         )
 
+    @property
+    def definition(self) -> ToolDefinition:
+        return self._definition
+
     def execute(
         self,
         *,
-        user: User,
+        user,
         arguments: dict[str, Any],
     ) -> dict[str, Any]:
-        city = arguments["city"]
-
         return {
-            "city": city,
-            "temperature": 30,
-            "condition": "Sunny",
+            "value": arguments["value"],
         }

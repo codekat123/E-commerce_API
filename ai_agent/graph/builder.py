@@ -5,7 +5,7 @@ from functools import lru_cache
 from langgraph.graph import END, START, StateGraph
 from langgraph.graph.state import CompiledStateGraph
 
-from ai_agent.graph.container import build_container
+from ai_agent.graph.container import GraphContainer, build_container
 from ai_agent.graph.routing import (
     END_ROUTE,
     TOOL_NODE,
@@ -16,9 +16,11 @@ from ai_agent.graph.state import GraphState
 CHAT_NODE = "chat"
 
 
-def build_graph() -> CompiledStateGraph:
-    container = build_container()
-
+def build_graph(
+    *,
+    container: GraphContainer | None = None,
+) -> CompiledStateGraph:
+    container = container or build_container()
     builder = StateGraph(GraphState)
 
     builder.add_node(

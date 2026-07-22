@@ -1,0 +1,2 @@
+from .teset_tool_registry import ToolRegistryTests
+from .test_tool_executor import ToolExecutorTests

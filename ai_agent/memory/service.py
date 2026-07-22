@@ -36,7 +36,7 @@ class MemoryService:
             conversation=conversation,
         )
 
-        return self._convert_messages(
+        return self._convert_to_langchain_messages(
             messages=messages,
         )
 
