@@ -3,6 +3,13 @@ from __future__ import annotations
 from uuid import UUID
 
 from django.contrib.auth import get_user_model
+from langchain_core.messages import (
+    AIMessage,
+    BaseMessage,
+    HumanMessage,
+    SystemMessage,
+    ToolMessage,
+)
 
 from ai_agent.models.conversation import Conversation
 from ai_agent.models.message import Message, MessageRole
@@ -31,29 +38,48 @@ class ConversationService:
             user=user,
         )
 
-    def add_user_message(
+    def add_langchain_message(
         self,
         *,
         conversation: Conversation,
-        content: str,
+        message: BaseMessage,
     ) -> Message:
+        role = self._get_message_role(message)
+
         return self._create_message(
             conversation=conversation,
-            role=MessageRole.USER,
-            content=content,
+            role=role,
+            content=message.content,
+            tool_calls=getattr(message, "tool_calls", []),
+            tool_call_id=getattr(
+                message,
+                "tool_call_id",
+                None,
+            ),
+            tool_name=getattr(
+                message,
+                "name",
+                None,
+            ),
         )
 
-    def add_assistant_message(
+    def _get_message_role(
         self,
-        *,
-        conversation: Conversation,
-        content: str,
-    ) -> Message:
-        return self._create_message(
-            conversation=conversation,
-            role=MessageRole.ASSISTANT,
-            content=content,
-        )
+        message: BaseMessage,
+    ) -> MessageRole:
+        if isinstance(message, HumanMessage):
+            return MessageRole.USER
+
+        if isinstance(message, AIMessage):
+            return MessageRole.ASSISTANT
+
+        if isinstance(message, ToolMessage):
+            return MessageRole.TOOL
+
+        if isinstance(message, SystemMessage):
+            return MessageRole.SYSTEM
+
+        raise ValueError(f"Unsupported message type: {type(message)}")
 
     def _create_message(
         self,
@@ -61,9 +87,15 @@ class ConversationService:
         conversation: Conversation,
         role: MessageRole,
         content: str,
+        tool_calls: list | None = None,
+        tool_call_id: str | None = None,
+        tool_name: str | None = None,
     ) -> Message:
         return Message.objects.create(
             conversation=conversation,
             role=role,
             content=content,
+            tool_calls=tool_calls or [],
+            tool_call_id=tool_call_id,
+            tool_name=tool_name,
         )

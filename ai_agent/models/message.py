@@ -24,6 +24,23 @@ class Message(models.Model):
 
     content = models.TextField()
 
+    tool_calls = models.JSONField(
+        default=list,
+        blank=True,
+    )
+
+    tool_call_id = models.CharField(
+        max_length=255,
+        null=True,
+        blank=True,
+    )
+
+    tool_name = models.CharField(
+        max_length=255,
+        null=True,
+        blank=True,
+    )
+
     created_at = models.DateTimeField(
         auto_now_add=True,
     )

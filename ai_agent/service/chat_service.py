@@ -27,8 +27,8 @@ class ChatService:
     - Persist user messages.
     - Load conversation context.
     - Execute the AI graph.
-    - Persist assistant messages.
-    - Return the chat result.
+    - Persist newly generated graph messages.
+    - Return the final assistant response.
     """
 
     def __init__(
@@ -72,23 +72,44 @@ class ChatService:
             conversation=conversation,
         )
 
-        initial_state = self._build_initial_state(messages=context_messages, user=user)
+        initial_state = self._build_initial_state(
+            user=user,
+            messages=context_messages,
+        )
+
+        previous_message_count = len(context_messages)
 
         final_state = self._graph.invoke(initial_state)
 
-        response = self._extract_response(
-            final_state,
+        self._persist_new_messages(
+            conversation=conversation,
+            previous_message_count=previous_message_count,
+            state=final_state,
         )
 
-        self._conversation_service.add_assistant_message(
-            conversation=conversation,
-            content=response,
+        response = self._extract_response(
+            final_state,
         )
 
         return ChatResult(
             conversation=conversation,
             response=response,
         )
+
+    def _persist_new_messages(
+        self,
+        *,
+        conversation: Conversation,
+        previous_message_count: int,
+        state: GraphState,
+    ) -> None:
+        new_messages = state["messages"][previous_message_count:]
+
+        for message in new_messages:
+            self._conversation_service.add_langchain_message(
+                conversation=conversation,
+                message=message,
+            )
 
     def _get_or_create_conversation(
         self,

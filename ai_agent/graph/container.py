@@ -6,8 +6,8 @@ from ai_agent.graph.nodes.chat import ChatNode
 from ai_agent.graph.nodes.tool_node import ToolNode
 from ai_agent.llm.gemini_client import GeminiClient
 from ai_agent.service.tool_executor import ToolExecutor
+from ai_agent.tools.order import GetOrderDetailsTool, ListOrdersTool
 from ai_agent.tools.registry import ToolRegistry
-from ai_agent.tools.weather import WeatherTool
 
 
 @dataclass(frozen=True, slots=True)
@@ -20,7 +20,8 @@ def build_container() -> GraphContainer:
 
     tool_registry = ToolRegistry(
         tools=[
-            WeatherTool(),
+            ListOrdersTool(),
+            GetOrderDetailsTool(),
         ],
     )
 

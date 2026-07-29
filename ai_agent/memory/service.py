@@ -16,7 +16,6 @@ _MESSAGE_CLASS_MAP: dict[
     MessageRole.USER: HumanMessage,
     MessageRole.ASSISTANT: AIMessage,
     MessageRole.SYSTEM: SystemMessage,
-    MessageRole.TOOL: ToolMessage,
 }
 
 
@@ -52,6 +51,9 @@ class MemoryService:
                 "role",
                 "content",
                 "created_at",
+                "tool_calls",
+                "tool_call_id",
+                "tool_name",
             )
             .order_by("-created_at")[: self._history_limit]
         )
@@ -67,6 +69,25 @@ class MemoryService:
         context_messages: list[BaseMessage] = []
 
         for message in messages:
+            if message.role == MessageRole.TOOL:
+                context_messages.append(
+                    ToolMessage(
+                        content=message.content,
+                        tool_call_id=message.tool_call_id,
+                        name=message.tool_name,
+                    )
+                )
+                continue
+
+            if message.role == MessageRole.ASSISTANT:
+                context_messages.append(
+                    AIMessage(
+                        content=message.content,
+                        tool_calls=message.tool_calls,
+                    )
+                )
+                continue
+
             message_class = _MESSAGE_CLASS_MAP.get(message.role)
 
             if message_class is None:
