@@ -14,10 +14,12 @@ class GeminiConfig:
     api_key: str
     model: str
     temperature: float
+    embedding_model: str
 
 
 gemini_config = GeminiConfig(
     api_key=settings.GEMINI_API_KEY,
     model="gemini-2.5-flash",
     temperature=0.2,
+    embedding_model="gemini-embedding-001",
 )
