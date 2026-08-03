@@ -25,7 +25,7 @@ class GeminiEmbeddingClient:
         text: str,
     ) -> list[float]:
         """
-        Generate an embedding vector for the given text.
+        Generate an embedding vector for a single piece of text.
         """
         if not text.strip():
             raise ValueError("Text cannot be empty.")
@@ -41,14 +41,14 @@ class GeminiEmbeddingClient:
                 contents=text,
             )
 
-            embedding = response.embeddings
+            embeddings = response.embeddings
 
-            if not embedding:
+            if not embeddings:
                 raise GeminiEmbeddingError(
                     "Gemini returned no embedding.",
                 )
 
-            values = embedding[0].values
+            values = embeddings[0].values
 
             if not values:
                 raise GeminiEmbeddingError(
@@ -64,3 +64,15 @@ class GeminiEmbeddingClient:
             raise GeminiEmbeddingError(
                 "Failed to generate embedding.",
             ) from exc
+
+    def embed_many(
+        self,
+        texts: list[str],
+    ) -> list[list[float]]:
+        """
+        Generate embeddings for multiple texts.
+        """
+        if not texts:
+            return []
+
+        return [self.embed(text) for text in texts]
